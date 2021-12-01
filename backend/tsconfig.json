@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "lib": ["es5", "es6"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": "./blc-eggp-api",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "@types/node",
+      "@types/express",
+      "@types/morgan",
+      "@types/jest",
+      "@types/passport",
+      "@types/passport-local",
+      "@types/passport-jwt",
+      "@types/bcrypt",
+      "@types/jsonwebtoken"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".nuxt",
+    "dist"
+  ]
+}
