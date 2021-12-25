@@ -10,6 +10,12 @@ import { errorHandler } from '@/middlewares/error.middleware'
 
 import '@/plugins/passport.plugin'
 import '@/plugins/aws.plugin'
+import '@/plugins/mongoose.plugin'
+
+require('dotenv').config({
+  path: `../.env.${process.env.NODE_ENV}`
+})
+
 
 const port = process.env.APP_PORT || 3005;
 const host = process.env.APP_HOST || 'localhost';
@@ -36,17 +42,17 @@ class App {
       resave: false,
       saveUninitialized: false
     }))
-  
+
     //  Passport
     app.use(passport.initialize())
     app.use(passport.session())
 
     // add routes
     routes.forEach((route) => app.use(`/api/${route.name}`, route.router))
-  
+
     app.use(errorHandler)
   }
-  
+
   public start (): void {
     this.app.listen(port, () => console.log(`Application running on ${host}:${port}`));
   }
