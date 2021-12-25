@@ -10,9 +10,12 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import { useKakao } from 'vue3-kakao-sdk'
+import useAuthStore from '@/stores/auth'
 
 const btnRef = ref<HTMLElement>()
 const { kakao, initialize } = useKakao()
+
+const authStore = useAuthStore()
 
 onMounted(async () => {
   await initialize()
@@ -23,7 +26,9 @@ onMounted(async () => {
   kakao.value.Auth.createLoginButton({
     container: btnRef.value,
     success (params) {
+      const { access_token: accessToken } = params
       console.log('login success', params)
+      authStore.login(accessToken)
     },
     fail (err) {
       console.error(err)
