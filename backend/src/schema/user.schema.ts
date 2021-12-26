@@ -1,22 +1,17 @@
-import { Schema } from 'dynamoose'
-import { ImageInfoSchema } from '@/schema/image.schema'
+import { Schema } from 'mongoose'
+import { Auth } from '@/types/auth.type'
+import User = Auth.User
 
-export const UserSchema = new Schema({
+export const UserSchema = new Schema<User>({
   userId: {
     type: String,
-    hashKey: true
-  },
-  password: String,
-  userName: String,
-  completed: Boolean,
-  auth: String,
-  rules: {
-    type: Array,
-    schema: [String],
     required: true
   },
-  profileImage: {
-    type: Object,
-    schema: ImageInfoSchema
-  }
+  socialType: String,
+  userName: String,
+  email: String,
+  completed: String,
+  rules: Array,
+  auth: String,
+  profileImage: String
 })
