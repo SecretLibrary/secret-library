@@ -1,13 +1,20 @@
-import { createWebHistory, createRouter, RouteRecordRaw } from 'vue-router'
+import {
+  createWebHistory,
+  createRouter,
+  RouteRecordRaw
+} from 'vue-router'
+
+import { useAuthentication } from '@/hooks/routes/auth'
 
 //  Layouts
-import defaultLayout from '@/layouts/default.vue'
+import defaultLayout from '@/layouts/layout.default.vue'
+import authLayout from '@/layouts/layout.auth.vue'
 
 //  Pages
 import Home from '@/pages/index.vue'
-import Login from '@/pages/auth/login.vue'
-
-import useAuthStore from '@/stores/auth'
+import User from '@/pages/user/user.index.vue'
+import Login from '@/pages/auth/auth.login.vue'
+import { useDark, useToggle } from '@vueuse/core'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -28,29 +35,26 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        component: Home
+        component: User
       }
     ],
-    beforeEnter (before, after, next) {
-      const authStore = useAuthStore()
-      const isAuthenticated = authStore.isAuthenticated
-      if (isAuthenticated) {
-        next()
-      } else {
-        next('/auth/login')
-      }
-    }
+    ...useAuthentication()
   },
   {
     path: '/auth',
     name: 'Authentication',
-    component: defaultLayout,
+    component: authLayout,
     children: [
       {
         path: 'login',
         component: Login
       }
-    ]
+    ],
+    beforeEnter () {
+      const isDarkMode = useDark()
+      const toggleDarkMode = useToggle(isDarkMode)
+      toggleDarkMode(false)
+    }
   }
 ]
 
