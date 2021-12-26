@@ -5,7 +5,7 @@ const defaultSuccessResponse: API.Response<any> = {
   status: 200,
   success: true,
   message: 'success'
-} 
+}
 
 const defaultErrorResponse: API.Response<any> = {
   status: 400,

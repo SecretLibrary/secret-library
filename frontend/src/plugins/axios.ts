@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+const apiBaseUrl: string = import.meta.env.VITE_API_BASE_URL as string
+
+axios.defaults.baseURL = apiBaseUrl
 axios.defaults.headers.common.Accept = 'application/json'
 
 axios.interceptors.request.use(config => {
@@ -7,7 +10,7 @@ axios.interceptors.request.use(config => {
 
     if(token) {
       config.headers = {
-        'x-access-token': `${token}`
+        'Authorization': `Bearer ${token}`
       }
     }
 

@@ -1,31 +1,26 @@
-interface IObjectType {
-  [key: string]: any
-}
 
-export function reverseProjection (obj: object, parameters: string[]) {
-  const result: IObjectType = {}
+export function omit <T, K extends Extract<keyof T, string>> (obj: T, parameters: K[]) {
+  const result: { [key: string]: any } = {}
 
   for (const [key, value] of Object.entries(obj)) {
-    if (parameters.includes(key)) {
+    if (parameters.includes(key as K)) {
       continue
     }
 
     result[key] = value
   }
 
-  return result
+  return result as Omit<T, K>
 }
 
-export function projection (obj: object, parameters: string[]) {
-  const result: IObjectType = {}
+export function pick <T, K extends Extract<keyof T, string>> (obj: T, parameters: K[]) {
+  const result: { [key: string]: any } = {}
 
   for (const [key, value] of Object.entries(obj)) {
-    if (!parameters.includes(key)) {
-      continue
+    if (parameters.includes(key as K)) {
+      result[key] = value
     }
-
-    result[key] = value
   }
 
-  return result
+  return result as Pick<T, K>
 }

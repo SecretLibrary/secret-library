@@ -17,6 +17,7 @@ async function findUserOrCreate (profile: Kakao.Profile) {
       socialType: 'KAKAO',
       userName: profile.nickname,
       rules: [],
+      completed: false,
       auth: 'USER',
       profileImage: profile.profile_image_url
     })
@@ -38,12 +39,15 @@ export async function authWithKakao (req, res) {
   const { id: userId, kakao_account: kakaoAccount } = await fetchKakaoUser(accessToken)
   const profile: Kakao.Profile = { userId, ...kakaoAccount.profile }
 
-  const user = await findUserOrCreate(profile)
+  await findUserOrCreate(profile)
   const token = jwt.sign(profile, jwtSecret)
 
   await success(res, token)
 }
 
+export async function fetchMe (req, res) {
+  await success(res, req.user)
+}
 
 export async function logout (req, res) {
   if (req.user) {
@@ -54,5 +58,6 @@ export async function logout (req, res) {
 
 export default {
   authWithKakao,
+  fetchMe,
   logout
 }
