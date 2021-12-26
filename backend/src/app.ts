@@ -4,6 +4,7 @@ import express from 'express'
 import morgan from 'morgan'
 import passport from 'passport'
 import session from 'express-session'
+import cors from 'cors'
 
 import routes from '@/routes'
 import { errorHandler } from '@/middlewares/error.middleware'
@@ -30,12 +31,13 @@ if (!SESSION_KEY) {
 class App {
   private app : express.Application;
   constructor () {
-    this.app = express();
+    this.app = express()
   }
 
   public init (): void {
     const { app } = this
     app.use(express.json())
+    app.use(cors())
     app.use(morgan('dev'))
     app.use(session({
       secret: SESSION_KEY,

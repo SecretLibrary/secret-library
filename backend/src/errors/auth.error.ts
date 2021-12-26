@@ -17,3 +17,9 @@ export class NotAuthenticated extends HttpError {
     super(403, '로그인이 되어있지 않습니다.')
   }
 }
+
+export class InvalidAccessToken extends HttpError {
+  constructor () {
+    super(400, '올바르지 않은 토큰 형식입니다.')
+  }
+}
