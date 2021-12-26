@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { data } from 'autoprefixer'
 
 axios.defaults.headers.common.Accept = 'application/json'
 
@@ -17,7 +18,7 @@ axios.interceptors.request.use(config => {
 )
 
 axios.interceptors.response.use(
-  response => response,
+  response => response.data.result,
   error => {
     if (error.response.status === 403 || error.response.status === 401) {
       localStorage.removeItem('access_token')

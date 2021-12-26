@@ -27,7 +27,6 @@ onMounted(async () => {
     container: btnRef.value,
     success (params) {
       const { access_token: accessToken } = params
-      console.log('login success', params)
       authStore.login(accessToken)
     },
     fail (err) {
