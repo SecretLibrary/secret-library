@@ -15,8 +15,11 @@ export function isAuthenticated (req: Request, _res: Response, next: NextFunctio
   return next(new NotAuthenticated())
 }
 
-export function authenticateWithJWT (req: Request, res: Response, next: NextFunction) {
-  passport.authenticate('jwt', { session: true }, (error, user) => {
+export async function authenticateWithJWT (req: Request, res: Response, next: NextFunction) {
+  passport.authenticate(
+    'jwt',
+    { session: true },
+    (error, user) => {
     if (error) {
       next(error)
     }
@@ -34,11 +37,11 @@ export function authenticateWithLocal (req: Request, res: Response, next: NextFu
     if (error) {
       return next(error)
     }
-  
+
     if (!user) {
       return next(new NoUserError())
     }
-  
+
     req.login(user, (loginErr) => {
       if (loginErr) {
         return next(loginErr)

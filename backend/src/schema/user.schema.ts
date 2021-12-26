@@ -9,7 +9,6 @@ export const UserSchema = new Schema<User>({
   },
   socialType: String,
   userName: String,
-  email: String,
   completed: String,
   rules: Array,
   auth: String,

@@ -10,12 +10,12 @@ export const errorHandler = (
   _next: NextFunction
 ) => {
   const status = error.statusCode || error.status || 500
-  const item: API.Response = {
+  const item: API.Response<null> = {
     status,
     message: error.message,
     success: false,
     result: null
   }
-  
+
   failed(res, item)
 }

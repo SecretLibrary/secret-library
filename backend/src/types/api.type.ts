@@ -1,8 +1,8 @@
 export declare namespace API {
-  export interface Response {
+  export interface Response<T> {
     message: string | null
     success: boolean
     status: number
-    result: any
+    result?: T
   }
 }
