@@ -10,7 +10,6 @@ export declare namespace Auth {
   interface User {
     userId: string;
     userName: string;
-    email: string;
     completed: boolean;
     socialType: SocialType;
     rules: Array<string>;

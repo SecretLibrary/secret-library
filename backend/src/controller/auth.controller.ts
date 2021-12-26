@@ -4,10 +4,28 @@ import { fetchKakaoUser } from '@/helpers/kakao'
 import { success } from '@/helpers/response'
 import { jwtSecret } from '@/helpers/env'
 import { UserModel } from '@/models/user.model'
+import { Nullable } from '@/types/base.type'
+import { Kakao } from '@/types/kakao.type'
+import { Auth } from '@/types/auth.type'
 
-async function findUser (profile) {
-  // const
-  // UserModel.findOne()
+async function findUserOrCreate (profile: Kakao.Profile) {
+  let user: Nullable<Auth.User> = await UserModel.findOne({ userId: profile.userId })
+
+  if (!user) {
+    const userModel = new UserModel({
+      userId: profile.userId,
+      socialType: 'KAKAO',
+      userName: profile.nickname,
+      rules: [],
+      auth: 'USER',
+      profileImage: profile.profile_image_url
+    })
+
+    await userModel.save()
+    user = await UserModel.findOne({ userId: profile.userId })
+  }
+
+  return user
 }
 
 export async function authWithKakao (req, res) {
@@ -17,14 +35,13 @@ export async function authWithKakao (req, res) {
     throw new InvalidAccessToken()
   }
 
-  const { id, kakao_account: kakaoAccount } = await fetchKakaoUser(accessToken)
-  const profile = kakaoAccount.profile
+  const { id: userId, kakao_account: kakaoAccount } = await fetchKakaoUser(accessToken)
+  const profile: Kakao.Profile = { userId, ...kakaoAccount.profile }
 
-  await success(res, { profile })
-}
+  const user = await findUserOrCreate(profile)
+  const token = jwt.sign(profile, jwtSecret)
 
-export async function authWithJWT (req, res) {
-  const profile = jwt.verify(req.headers.authorization, jwtSecret)
+  await success(res, token)
 }
 
 
@@ -37,6 +54,5 @@ export async function logout (req, res) {
 
 export default {
   authWithKakao,
-  authWithJWT,
   logout
 }
