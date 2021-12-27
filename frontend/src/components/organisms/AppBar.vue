@@ -4,7 +4,7 @@
     :class="[props.isScrolled ? 'shadow-lg' : '']"
     v-bind="$attrs"
   >
-    <div class="mx-auto max-w-xl w-full flex justify-between">
+    <div class="mx-auto max-w-7xl w-full flex justify-between">
       <div class="text-2xl font-bold flex items-center dark:text-gray-50 transition-colors">
         {{ title }}
       </div>

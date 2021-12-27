@@ -3,7 +3,7 @@
     <AppBar
       :isScrolled="isScrolledY"
     />
-    <main class="mx-auto max-w-xl w-full h-full">
+    <main class="mx-auto max-w-7xl w-full h-full">
       <router-view />
     </main>
   </div>
