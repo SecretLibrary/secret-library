@@ -9,6 +9,7 @@ axios.interceptors.request.use(config => {
     const token = localStorage.getItem('access_token')
 
     if(token) {
+      console.log('fucking', token)
       config.headers = {
         'Authorization': `Bearer ${token}`
       }
@@ -24,7 +25,7 @@ axios.interceptors.response.use(
   error => {
     if (error.response.status === 403 || error.response.status === 401) {
       localStorage.removeItem('access_token')
-      window.location.reload()
+      // window.location.reload()
     }
 
     return Promise.reject(error.response.data ?? error)

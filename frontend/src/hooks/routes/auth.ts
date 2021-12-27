@@ -8,7 +8,7 @@ export function useAuthentication () {
       const authStore = useAuthStore()
       const { isAuthenticated } = storeToRefs(authStore)
       if (!isAuthenticated.value) {
-        await authStore.me()
+        await authStore.fetchMe()
       }
 
       if (isAuthenticated.value) {
