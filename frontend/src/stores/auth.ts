@@ -8,7 +8,7 @@ const useAuthStore = defineStore('auth', () => {
   const userRef = ref<Nullable<Auth.User>>(null)
   const isAuthenticated = computed(() => !!userRef.value)
 
-  async function me () {
+  async function fetchMe () {
     const user: Auth.User = await axios.get('/auth/me')
     userRef.value = user
   }
@@ -31,7 +31,7 @@ const useAuthStore = defineStore('auth', () => {
     isAuthenticated,
     login,
     logout,
-    me
+    fetchMe
   }
 })
 

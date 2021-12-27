@@ -32,7 +32,7 @@ onMounted(async () => {
     async success (params) {
       const { access_token: accessToken } = params
       await authStore.login(accessToken)
-      await authStore.me()
+      await authStore.fetchMe()
 
       router.push('/')
     },

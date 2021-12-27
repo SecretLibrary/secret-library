@@ -17,7 +17,7 @@ import useAuthStore from '@/stores/auth'
 
 const { isScrolledY } = useScrollObserver()
 
-onMounted(useAuthStore().me)
+onMounted(useAuthStore().fetchMe)
 </script>
 
 <style scoped>
