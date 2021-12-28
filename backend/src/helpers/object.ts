@@ -1,5 +1,4 @@
-
-export function omit <T, K extends Extract<keyof T, string>> (obj: T, parameters: K[]) {
+export function omit <T extends object, K extends keyof T> (obj: T, parameters: K[]) {
   const result: { [key: string]: any } = {}
 
   for (const [key, value] of Object.entries(obj)) {
@@ -13,7 +12,7 @@ export function omit <T, K extends Extract<keyof T, string>> (obj: T, parameters
   return result as Omit<T, K>
 }
 
-export function pick <T, K extends Extract<keyof T, string>> (obj: T, parameters: K[]) {
+export function pick <T extends object, K extends keyof T> (obj: T, parameters: K[]) {
   const result: { [key: string]: any } = {}
 
   for (const [key, value] of Object.entries(obj)) {
