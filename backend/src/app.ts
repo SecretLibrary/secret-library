@@ -13,20 +13,10 @@ import '@/plugins/passport.plugin'
 import '@/plugins/aws.plugin'
 import '@/plugins/mongoose.plugin'
 
-require('dotenv').config({
-  path: `../.env.${process.env.NODE_ENV}`
-})
-
+import { sessionSecret, webSiteUrl } from '@/helpers/env'
 
 const port = process.env.APP_PORT || 3005;
 const host = process.env.APP_HOST || 'localhost';
-
-const SESSION_KEY = process.env.SESSION_KEY || 'HELLO_WORLD'
-
-if (!SESSION_KEY) {
-  console.error('No session secret string. Set SESSION_KEY environment variable.')
-  process.exit(1)
-}
 
 class App {
   private app : express.Application;
@@ -37,12 +27,20 @@ class App {
   public init (): void {
     const { app } = this
     app.use(express.json())
-    app.use(cors())
+    app.use(cors({
+      origin: [
+        webSiteUrl
+      ],
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTION",
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+      credentials: true,
+    }))
     app.use(morgan('dev'))
     app.use(session({
-      secret: SESSION_KEY,
+      secret: sessionSecret,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: true
     }))
 
     //  Passport

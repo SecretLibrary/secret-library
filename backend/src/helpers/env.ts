@@ -6,8 +6,12 @@ dotenv.config({ path: path.join(__dirname, `../../.env.${nodeEnv}`) })
 
 const dbUrl = process.env.MONGODB_URL
 const jwtSecret = process.env.JWT_SECRET
+const sessionSecret = process.env.SESSION_SECRET
+const webSiteUrl = process.env.WEB_PAGE_URL
 
 export {
   dbUrl,
-  jwtSecret
+  jwtSecret,
+  sessionSecret,
+  webSiteUrl
 }

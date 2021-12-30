@@ -16,7 +16,7 @@ export const getArticle: Controller = {
 
 export const addArticle: Controller = {
   middlewares: [
-    // isAuthenticated,
+    isAuthenticated,
     body('imageUrlList').exists().isArray(),
     body('articleItems').exists().isArray()
   ],
