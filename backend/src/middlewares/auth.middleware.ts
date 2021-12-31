@@ -15,12 +15,16 @@ export async function authenticateWithJWT (req: Request, res: Response, next: Ne
   passport.authenticate(
     'jwt',
     { session: true },
-    (error, user) => {
+    async (error, user) => {
     if (error) {
       next(error)
     }
 
     if (user) {
+      new Promise((resolve, reject) => req.login(user, (error) => {
+        if (error) reject(error)
+        resolve(true)
+      }))
       req.user = user
     }
 

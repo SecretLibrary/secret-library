@@ -39,8 +39,7 @@ class App {
     app.use(morgan('dev'))
     app.use(session({
       secret: sessionSecret,
-      resave: false,
-      saveUninitialized: true
+      resave: true
     }))
 
     //  Passport

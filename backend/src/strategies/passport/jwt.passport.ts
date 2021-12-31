@@ -3,7 +3,6 @@ import { Auth } from '@/types/auth.type'
 import { UserModel } from '@/models/user.model'
 import { Nullable } from '@/types/base.type'
 import { jwtSecret } from '@/helpers/env'
-import { pick } from '@/helpers/object'
 
 if (!jwtSecret) {
   console.error('No JWT secret string. Set JWT_SECRET environment variable.')

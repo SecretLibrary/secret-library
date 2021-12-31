@@ -7,7 +7,8 @@ import { authenticateWithJWT } from '@/middlewares/auth.middleware'
 const router = Router()
 
 router.post('/kakao', wrapAsync(authController.authWithKakao))
-router.get('/me', authenticateWithJWT, wrapAsync(authController.fetchMe))
+router.post('/login', authenticateWithJWT, wrapAsync(authController.login))
+router.get('/me', wrapAsync(authController.fetchMe))
 router.post('/logout', wrapAsync(authController.logout))
 
 export default {

@@ -6,6 +6,7 @@ import { UserModel } from '@/models/user.model'
 import { Nullable } from '@/types/base.type'
 import { Kakao } from '@/types/kakao.type'
 import { Auth } from '@/types/auth.type'
+import { authenticateWithJWT } from '@/middlewares/auth.middleware'
 
 async function findUserOrCreate (profile: Kakao.Profile) {
   let user: Nullable<Auth.User> = await UserModel.findOne({ userId: profile.userId })
@@ -39,9 +40,13 @@ export async function authWithKakao (req, res) {
   const profile: Kakao.Profile = { userId, ...kakaoAccount.profile }
 
   await findUserOrCreate(profile)
-  const token = jwt.sign(profile, jwtSecret)
+  const token = jwt.sign({ userId }, jwtSecret)
 
   return token
+}
+
+export async function login (req, res) {
+  return req.user
 }
 
 export async function fetchMe (req, res) {
@@ -57,6 +62,7 @@ export async function logout (req, res) {
 
 export default {
   authWithKakao,
+  login,
   fetchMe,
   logout
 }

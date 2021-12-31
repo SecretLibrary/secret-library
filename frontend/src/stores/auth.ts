@@ -9,6 +9,7 @@ const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!userRef.value)
 
   async function fetchMe () {
+    await axios.post('/auth/login')
     const user: Auth.User = await axios.get('/auth/me')
     userRef.value = user
   }
@@ -17,8 +18,8 @@ const useAuthStore = defineStore('auth', () => {
     const token: string = await axios.post('/auth/kakao', {
       accessToken
     })
-
     localStorage.setItem('access_token', token)
+    await axios.post('/auth/login')
   }
 
   async function logout () {

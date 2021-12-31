@@ -9,10 +9,10 @@ axios.interceptors.request.use(config => {
     const token = localStorage.getItem('access_token')
 
     if(token) {
-      console.log('fucking', token)
       config.headers = {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
       }
+      config.withCredentials = true
     }
 
     return config
