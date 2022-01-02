@@ -1,6 +1,10 @@
-import { body, param } from 'express-validator'
+import { body, param, validationResult } from 'express-validator'
 import { Controller } from '@/types/controller.type'
 import { isAuthenticated } from '@/middlewares/auth.middleware'
+import articleService from '@/services/article.service'
+import { Auth } from '@/types/auth.type'
+import User = Auth.User
+import { ReqParamsNotMatchError } from '@/errors/req.error'
 
 export const getArticle: Controller = {
   middlewares: [
@@ -9,6 +13,9 @@ export const getArticle: Controller = {
   ],
   async actor (req, res) {
     const user = req.user
+    const params = req.params
+
+    console.log('params', params)
 
     return user
   }
@@ -18,13 +25,22 @@ export const addArticle: Controller = {
   middlewares: [
     isAuthenticated,
     body('imageUrlList').exists().isArray(),
-    body('articleItems').exists().isArray()
+    body('articleItems').exists().isArray(),
+    body('articleItems.*.title').trim().isString(),
+    body('articleItems.*.text').trim().isString(),
+    body('articleItems.*.order').isNumeric(),
+    body('bookInfo').exists()
   ],
   async actor (req, res) {
-    const { imageUrlList, articleItems } = req.body
-    const user = req.user
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      throw new ReqParamsNotMatchError(errors)
+    }
 
-    return user
+    const { imageUrlList, articleItems, bookInfo } = req.body
+    const user = req.user as User
+
+    return await articleService.addArticle(user, bookInfo, articleItems, imageUrlList)
   }
 }
 

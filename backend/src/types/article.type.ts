@@ -36,14 +36,14 @@ export declare namespace Article {
   }
 
   interface Article {
-    _id: string,
+    _id?: string,
     imageUrlList: string[];
-    userId: string;
     articleItems: Question[];
-    userInfo: UserInfo;
-    createAt: Date;
-    likey: Likey[];
-    comment: Comment[];
-    meetingKey: Nullable<string>;
+    bookInfo: Book;
+    userInfo?: UserInfo;
+    createAt?: Date;
+    likey?: Likey[];
+    comment?: Comment[];
+    meetingKey?: Nullable<string>;
   }
 }

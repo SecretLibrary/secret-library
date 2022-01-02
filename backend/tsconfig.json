@@ -25,7 +25,8 @@
       "@types/passport-jwt",
       "@types/bcrypt",
       "@types/jsonwebtoken"
-    ]
+    ],
+    "typeRoots": ["./node_modules/@types", "./src/declarations"]
   },
   "include": [
     "src/**/*"
