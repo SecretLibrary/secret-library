@@ -14,6 +14,8 @@ import authLayout from '@/layouts/layout.auth.vue'
 import Home from '@/pages/index.vue'
 import User from '@/pages/user/user.index.vue'
 import Login from '@/pages/auth/auth.login.vue'
+import Article from '@/pages/article/_Article.vue'
+
 import { useDark, useToggle } from '@vueuse/core'
 
 const routes: RouteRecordRaw[] = [
@@ -39,6 +41,17 @@ const routes: RouteRecordRaw[] = [
       }
     ],
     ...useAuthentication()
+  },
+  {
+    path: '/article',
+    name: 'Article',
+    component: defaultLayout,
+    children: [
+      {
+        path: ':articleId',
+        component: Article
+      }
+    ]
   },
   {
     path: '/auth',
