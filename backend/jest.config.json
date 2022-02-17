@@ -3,6 +3,9 @@
 		"^.+\\.ts$": "ts-jest"
 	},
 	"testRegex": "\\.test\\.ts$",
+	"moduleNameMapper": {
+		"^@/(.*)$": "<rootDir>/src/$1"
+	},
 	"moduleFileExtensions": [
 		"ts",
 		"tsx",
