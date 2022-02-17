@@ -1,13 +1,17 @@
 <template>
-$END$
+  <ul>
+    <slot />
+  </ul>
 </template>
 
 <script>
 export default {
-name: "List"
+  name: 'List'
 }
 </script>
 
 <style scoped>
-
+ul {
+  list-style-type: none;
+}
 </style>

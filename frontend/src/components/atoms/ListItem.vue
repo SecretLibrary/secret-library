@@ -1,10 +1,12 @@
 <template>
-$END$
+  <li class="py-2">
+    <slot />
+  </li>
 </template>
 
 <script>
 export default {
-name: "ListItem"
+  name: 'ListItem'
 }
 </script>
 
