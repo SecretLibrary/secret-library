@@ -1,11 +1,12 @@
 import { Router } from 'express'
+import { addArticle, getArticle, getArticleList } from '@/controllers/article.controller'
 import wrapAsync from '@/middlewares/async.middleware'
-import { addArticle, getArticle } from '@/controllers/article.controller'
 
 const router = Router()
 
+router.get('/', getArticleList.middlewares, wrapAsync(getArticleList.actor))
 router.post('/', addArticle.middlewares, wrapAsync(addArticle.actor))
-router.get('/:id', addArticle.middlewares, wrapAsync(getArticle.actor))
+router.get('/:id', getArticle.middlewares, wrapAsync(getArticle.actor))
 
 export default {
   router,

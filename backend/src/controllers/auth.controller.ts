@@ -6,7 +6,6 @@ import { UserModel } from '@/models/user.model'
 import { Nullable } from '@/types/base.type'
 import { Kakao } from '@/types/kakao.type'
 import { Auth } from '@/types/auth.type'
-import { authenticateWithJWT } from '@/middlewares/auth.middleware'
 
 async function findUserOrCreate (profile: Kakao.Profile) {
   let user: Nullable<Auth.User> = await UserModel.findOne({ userId: profile.userId })

@@ -1,8 +1,8 @@
 import { Router } from 'express'
+import { authenticateWithJWT } from '@/middlewares/auth.middleware'
 
 import wrapAsync from '@/middlewares/async.middleware'
 import authController from '@/controllers/auth.controller'
-import { authenticateWithJWT } from '@/middlewares/auth.middleware'
 
 const router = Router()
 

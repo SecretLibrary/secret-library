@@ -12,12 +12,23 @@ export const getArticle: Controller = {
     param('id').exists()
   ],
   async actor (req, res) {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      throw new ReqParamsNotMatchError(errors)
+    }
+
     const user = req.user
     const params = req.params
 
-    console.log('params', params)
-
     return user
+  }
+}
+
+export const getArticleList: Controller = {
+  middlewares: [
+  ],
+  async actor (req, res) {
+    return await articleService.getArticleList()
   }
 }
 

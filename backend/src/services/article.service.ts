@@ -9,7 +9,13 @@ import Question = Article.Question
 import Book = Article.Book
 import User = Auth.User
 
-export async function addArticle (user: User, bookInfo: Book, articleItems: Question[], imageUrlList: [], meetingKey: Nullable<String> = null) {
+export async function addArticle (
+  user: User,
+  bookInfo: Book,
+  articleItems: Question[],
+  imageUrlList: [],
+  meetingKey: Nullable<String> = null
+) {
   const articleModel = new ArticleModel({
     imageUrlList,
     articleItems,
@@ -25,6 +31,11 @@ export async function addArticle (user: User, bookInfo: Book, articleItems: Ques
   return result
 }
 
+export async function getArticleList () {
+  const articleList: Article.Article[] = await ArticleModel.find()
+  return articleList
+}
+
 export async function getArticle (articleId: string) {
   const article: Article.Article = await ArticleModel.findById(articleId)
   return article
@@ -36,5 +47,7 @@ export async function removeArticle (articleId: string) {
 
 export default {
   addArticle,
+  getArticleList,
+  getArticle,
   removeArticle
 }
