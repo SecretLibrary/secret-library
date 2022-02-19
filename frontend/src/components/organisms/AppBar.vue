@@ -33,7 +33,7 @@
           </button>
         </template>
         <template v-else>
-          <UserIcon />
+          <UserIcon @click="events.onClickGoLogin"/>
         </template>
       </div>
     </div>
@@ -79,6 +79,9 @@ const events = {
   },
   onClickToggleDarkMode () {
     toggleDarkMode()
+  },
+  onClickGoLogin () {
+    router.push('/auth/login')
   }
 }
 </script>
