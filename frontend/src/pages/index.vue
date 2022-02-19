@@ -25,12 +25,13 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-import Button from '@/components/atoms/Button.vue'
-import List from '@/components/atoms/List.vue'
-import ListItem from '@/components/atoms/ListItem.vue'
-import axios from 'axios'
 import { onMounted, ref } from 'vue'
 import { Article } from '@/types/article.type'
+
+import axios from 'axios'
+
+import List from '@/components/atoms/List.vue'
+import ListItem from '@/components/atoms/ListItem.vue'
 
 const router = useRouter()
 
