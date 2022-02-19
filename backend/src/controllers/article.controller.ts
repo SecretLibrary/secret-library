@@ -1,14 +1,15 @@
 import { body, param, validationResult } from 'express-validator'
 import { Controller } from '@/types/controller.type'
 import { isAuthenticated } from '@/middlewares/auth.middleware'
-import articleService from '@/services/article.service'
 import { Auth } from '@/types/auth.type'
-import User = Auth.User
 import { ReqParamsNotMatchError } from '@/errors/req.error'
+
+import articleService from '@/services/article.service'
+
+import User = Auth.User
 
 export const getArticle: Controller = {
   middlewares: [
-    isAuthenticated,
     param('id').exists()
   ],
   async actor (req, res) {
@@ -17,10 +18,10 @@ export const getArticle: Controller = {
       throw new ReqParamsNotMatchError(errors)
     }
 
-    const user = req.user
     const params = req.params
+    const articleId = params.id
 
-    return user
+    return await articleService.getArticle(articleId)
   }
 }
 

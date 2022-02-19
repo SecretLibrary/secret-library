@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken'
 import { InvalidAccessToken } from '@/errors/auth.error'
 import { fetchKakaoUser } from '@/helpers/kakao'
 import { jwtSecret } from '@/helpers/env'
@@ -6,6 +5,8 @@ import { UserModel } from '@/models/user.model'
 import { Nullable } from '@/types/base.type'
 import { Kakao } from '@/types/kakao.type'
 import { Auth } from '@/types/auth.type'
+
+import jwt from 'jsonwebtoken'
 
 async function findUserOrCreate (profile: Kakao.Profile) {
   let user: Nullable<Auth.User> = await UserModel.findOne({ userId: profile.userId })
