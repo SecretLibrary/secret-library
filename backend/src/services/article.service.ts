@@ -32,7 +32,7 @@ export async function addArticle (
 }
 
 export async function getArticleList () {
-  const articleList: Article.Article[] = await ArticleModel.find()
+  const articleList: Article.Article[] = await ArticleModel.find().select(['-comment', '-imageUrlList'])
   return articleList
 }
 
